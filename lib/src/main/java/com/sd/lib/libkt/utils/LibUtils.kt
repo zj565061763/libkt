@@ -4,8 +4,7 @@ import android.os.Build
 import android.view.View
 
 internal object LibUtils {
-    fun isAttached(view: View?): Boolean {
-        if (view == null) return false
+    fun isAttached(view: View): Boolean {
         return if (Build.VERSION.SDK_INT >= 19)
             view.isAttachedToWindow
         else

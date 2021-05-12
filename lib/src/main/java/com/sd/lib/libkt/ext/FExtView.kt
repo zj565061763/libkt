@@ -1,6 +1,5 @@
 package com.sd.lib.libkt.ext
 
-import android.os.Build
 import android.view.View
 import com.sd.lib.libkt.model.FLayoutChangeParams
 import com.sd.lib.libkt.utils.LibUtils
@@ -11,10 +10,7 @@ import kotlin.coroutines.suspendCoroutine
  * View是否被添加到UI上面
  */
 fun View.fIsAttached(): Boolean {
-    return if (Build.VERSION.SDK_INT >= 19)
-        this.isAttachedToWindow
-    else
-        this.windowToken != null
+    return LibUtils.isAttached(this)
 }
 
 /**
