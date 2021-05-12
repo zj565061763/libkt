@@ -8,6 +8,7 @@ import com.example.libkt.databinding.ActivityMainBinding
 import com.sd.lib.libkt.ext.fAwaitAttached
 import com.sd.lib.libkt.ext.fAwaitLayoutChanged
 import com.sd.lib.libkt.ext.fIsAttached
+import com.sd.lib.libkt.ext.fObjectId
 import com.sd.lib.libkt.model.FResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -26,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         val success = FResult.success<Activity>(this)
         val failure = FResult.failure<Activity>()
         val view = _binding.tvContent
+
+        Log.i(TAG, "activity:${fObjectId()}")
 
         GlobalScope.launch(Dispatchers.Main) {
             Log.i(TAG, "fIsAttached:${view.fIsAttached()}")
