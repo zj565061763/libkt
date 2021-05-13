@@ -20,6 +20,12 @@ class FResult<T> internal constructor(val data: T?, val failure: FFailure?) {
 
         @JvmStatic
         @JvmOverloads
+        fun <T> failure(message: String? = "", code: Int? = null): FResult<T> {
+            return failure(FException(message = message), code)
+        }
+
+        @JvmStatic
+        @JvmOverloads
         fun <T> failure(exception: Exception?, code: Int? = null): FResult<T> {
             return FResult(null, FFailure(exception ?: FException("unknown"), code = code))
         }

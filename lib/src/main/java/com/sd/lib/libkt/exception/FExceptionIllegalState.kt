@@ -5,5 +5,5 @@ package com.sd.lib.libkt.exception
  */
 open class FExceptionIllegalState : FException {
     @JvmOverloads
-    constructor(message: String?, cause: Throwable? = null) : super(message, cause)
+    constructor(message: String? = "", cause: Throwable? = null) : super(message, cause)
 }

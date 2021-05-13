@@ -2,7 +2,7 @@ package com.sd.lib.libkt.exception
 
 open class FException : Exception {
     @JvmOverloads
-    constructor(message: String?, cause: Throwable? = null) : super(message, cause)
+    constructor(message: String? = "", cause: Throwable? = null) : super(message, cause)
 
     override fun toString(): String {
         val superMessage = localizedMessage ?: ""
