@@ -1,9 +1,9 @@
 package com.sd.lib.libkt.exception
 
 /**
- * 取消
+ * Http异常
  */
-class FExceptionCancellation : FException {
+open class FExceptionHttp : FException {
     @JvmOverloads
     constructor(message: String?, cause: Throwable? = null) : super(message, cause)
 }
