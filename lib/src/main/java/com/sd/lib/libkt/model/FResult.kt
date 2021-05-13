@@ -1,5 +1,7 @@
 package com.sd.lib.libkt.model
 
+import com.sd.lib.libkt.exception.FException
+
 class FResult<T> internal constructor(val data: T?, val failure: FFailure?) {
     val isSuccess: Boolean
 
@@ -18,8 +20,8 @@ class FResult<T> internal constructor(val data: T?, val failure: FFailure?) {
 
         @JvmStatic
         @JvmOverloads
-        fun <T> failure(exception: Exception, code: Int? = null): FResult<T> {
-            return FResult(null, FFailure(exception, code = code))
+        fun <T> failure(exception: Exception?, code: Int? = null): FResult<T> {
+            return FResult(null, FFailure(exception ?: FException("unknown"), code = code))
         }
     }
 }
