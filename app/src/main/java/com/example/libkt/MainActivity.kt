@@ -5,14 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.libkt.databinding.ActivityMainBinding
-import com.sd.lib.libkt.ext.fAwaitAttached
-import com.sd.lib.libkt.ext.fAwaitLayoutChanged
-import com.sd.lib.libkt.ext.fIsAttached
+import com.sd.lib.libkt.exception.FException
 import com.sd.lib.libkt.ext.fObjectId
 import com.sd.lib.libkt.model.FResult
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     val TAG = MainActivity::class.java.simpleName
@@ -24,22 +19,12 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(_binding.root)
 
-        val success = FResult.success<Activity>(this)
-        val failure = FResult.failure<Activity>()
         val view = _binding.tvContent
 
+        val resultSuccess = FResult.success<Activity>(this)
+        val resultFailure = FResult.failure<Activity>(FException("failure activity"))
+        Log.i(TAG, "result isSuccess:${resultSuccess.isSuccess} data:${resultSuccess.data!!}")
+        Log.i(TAG, "result isSuccess:${resultFailure.isSuccess} failure:${resultFailure.failure!!}")
         Log.i(TAG, "activity:${fObjectId()}")
-
-        GlobalScope.launch(Dispatchers.Main) {
-            Log.i(TAG, "fIsAttached:${view.fIsAttached()}")
-            view.fAwaitAttached()
-            Log.i(TAG, "fIsAttached:${view.fIsAttached()}")
-        }
-
-        GlobalScope.launch(Dispatchers.Main) {
-            Log.i(TAG, "width:${view.width}")
-            view.fAwaitLayoutChanged()
-            Log.i(TAG, "width:${view.width}")
-        }
     }
 }
