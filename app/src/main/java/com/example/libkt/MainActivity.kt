@@ -19,12 +19,15 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(_binding.root)
 
-        val view = _binding.tvContent
+        val resultString = FResult.failure<String>("failure string")
+        val resultInt = FResult.failure<Int>(resultString)
+        Log.i(TAG, "resultInt isSuccess:${resultInt.isSuccess} failure:${resultInt.failure}")
 
         val resultSuccess = FResult.success<Activity>(this)
         val resultFailure = FResult.failure<Activity>(FException("failure activity"))
         Log.i(TAG, "result isSuccess:${resultSuccess.isSuccess} data:${resultSuccess.data!!}")
         Log.i(TAG, "result isSuccess:${resultFailure.isSuccess} failure:${resultFailure.failure!!}")
+
         Log.i(TAG, "activity:${fObjectId()}")
     }
 }
