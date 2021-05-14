@@ -24,32 +24,29 @@ class FResult<T> internal constructor(val data: T?, val failure: FFailure?) {
         }
 
         @JvmStatic
-        @JvmOverloads
-        fun <T> failure(message: String? = "", code: Int? = null): FResult<T> {
-            return failure(FException(message = message), code)
+        fun <T> failure(message: String? = ""): FResult<T> {
+            val exception = FException(message = message)
+            return failure(exception)
         }
 
         @JvmStatic
         fun <T> failure(result: FResult<*>): FResult<T> {
-            assert(!result.isSuccess)
-            val fail = result.failure!!
-            return failure(fail.exception, fail.code)
+            assert(result.isFailure)
+            val exception = result.failure!!.exception
+            return failure(exception)
         }
 
         @JvmStatic
-        @JvmOverloads
-        fun <T> failure(exception: Exception?, code: Int? = null): FResult<T> {
-            return FResult(null, FFailure(exception ?: FException("unknown"), code = code))
+        fun <T> failure(exception: Exception?): FResult<T> {
+            return FResult(null, FFailure(exception ?: FException(message = "unknown")))
         }
     }
 }
 
 class FFailure(
     val exception: Exception,
-    val code: Int? = null,
 ) {
     override fun toString(): String {
-        val codeString = if (code != null) " ${code} " else ""
-        return "${exception}${codeString}"
+        return exception.toString()
     }
 }
