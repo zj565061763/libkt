@@ -21,6 +21,7 @@ class ExampleInstrumentedTest {
         assertEquals("com.example.libkt", appContext.packageName)
     }
 
+    @Test
     fun testFResult() {
         val result = FResult.success("success")
         assertEquals(true, result.isSuccess)
