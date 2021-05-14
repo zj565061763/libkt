@@ -43,4 +43,29 @@ class ExampleInstrumentedTest {
         assertEquals(true, resultSuccess == FResult.success("success"))
         assertEquals(false, resultFailure == FResult.failure<String>("failure"))
     }
+
+    @Test
+    fun testResultSet() {
+        val set = mutableSetOf<FResult<*>>()
+
+        val resultSuccess = FResult.success("success")
+        val resultFailure = FResult.failure<String>("failure")
+
+        set.clear()
+        set.add(resultSuccess)
+        set.add(resultFailure)
+        assertEquals(2, set.size)
+        assertEquals(true, set.contains(FResult.success("success")))
+
+        val add = set.add(FResult.success("success"))
+        assertEquals(false, add)
+        assertEquals(2, set.size)
+
+        val failure = FResult.failure<String>("failure")
+        assertEquals(false, set.contains(failure))
+
+        set.add(failure)
+        assertEquals(true, set.contains(failure))
+        assertEquals(3, set.size)
+    }
 }
