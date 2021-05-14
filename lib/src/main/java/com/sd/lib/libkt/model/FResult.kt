@@ -4,12 +4,17 @@ import com.sd.lib.libkt.exception.FException
 
 class FResult<T> internal constructor(val data: T?, val failure: FFailure?) {
     val isSuccess: Boolean
+    val isFailure: Boolean
 
     init {
         val success = data != null && failure == null
         val failure = data == null && failure != null
+
         assert(success || failure)
+        if (success && failure) throw RuntimeException("success and failure")
+
         isSuccess = success
+        isFailure = failure
     }
 
     companion object {
@@ -25,7 +30,6 @@ class FResult<T> internal constructor(val data: T?, val failure: FFailure?) {
         }
 
         @JvmStatic
-        @JvmOverloads
         fun <T> failure(result: FResult<*>): FResult<T> {
             assert(!result.isSuccess)
             val fail = result.failure!!
