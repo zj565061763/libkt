@@ -19,5 +19,6 @@ class ExampleInstrumentedTest {
         assertEquals(true, result.isSuccess)
         assertEquals(false, result.isFailure)
         assertEquals("success", result.data)
+        assertEquals(null, result.failure)
     }
 }
