@@ -10,4 +10,8 @@ open class FExceptionCode : FException {
     constructor(code: Int, message: String? = "", cause: Throwable? = null) : super(message, cause) {
         this.code = code
     }
+
+    override fun toString(): String {
+        return "${super.toString()} code:${super.toString()}"
+    }
 }
