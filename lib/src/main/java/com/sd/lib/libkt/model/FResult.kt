@@ -9,7 +9,9 @@ class FResult<T> internal constructor(val data: T?, val failure: FFailure?) {
     init {
         val success = data != null && failure == null
         val failure = data == null && failure != null
+
         assert(success || failure)
+        if (success && failure) throw RuntimeException("success and failure")
 
         isSuccess = success
         isFailure = failure
