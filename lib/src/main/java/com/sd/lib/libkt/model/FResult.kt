@@ -17,6 +17,19 @@ class FResult<T> internal constructor(val data: T?, val failure: FFailure?) {
         isFailure = failure
     }
 
+    override fun hashCode(): Int {
+        return arrayOf(isSuccess, isFailure, data, failure).contentHashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other === this) return true
+        if (other !is FResult<*>) return false
+        return isSuccess == other.isSuccess &&
+                isFailure == other.isFailure &&
+                data == other.data &&
+                failure == other.failure
+    }
+
     companion object {
         @JvmStatic
         fun <T> success(data: T): FResult<T> {
