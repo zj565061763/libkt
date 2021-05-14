@@ -5,7 +5,6 @@ import com.sd.lib.libkt.model.FResult
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -31,8 +30,17 @@ class ExampleInstrumentedTest {
         assertEquals(null, result.data)
         assertEquals("failure", result.failure!!.toString())
 
-        val resultObject = FResult.failure<Objects>(result)
-        assertEquals(result.failure, resultObject.failure)
-        assertEquals(result, resultObject)
+        val resultCopy = FResult.failure<String>(result)
+        assertEquals(result.failure, resultCopy.failure)
+        assertEquals(result, resultCopy)
+    }
+
+    @Test
+    fun testResultEquals() {
+        val resultSuccess = FResult.success("success")
+        val resultFailure = FResult.failure<String>("failure")
+        assertEquals(false, resultSuccess == resultFailure)
+        assertEquals(true, resultSuccess == FResult.success("success"))
+        assertEquals(false, resultFailure == FResult.failure<String>("failure"))
     }
 }
