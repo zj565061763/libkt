@@ -1,7 +1,6 @@
 package com.sd.lib.libkt.ext
 
 import android.view.View
-import android.view.ViewGroup
 import com.sd.lib.libkt.model.FLayoutChangeParams
 import com.sd.lib.libkt.utils.LibUtils
 import kotlin.coroutines.resume
@@ -10,14 +9,14 @@ import kotlin.coroutines.suspendCoroutine
 /**
  * View是否被添加到UI上面
  */
-fun View.fIsAttached(): Boolean {
+fun View?.fIsAttached(): Boolean {
     return LibUtils.isAttached(this)
 }
 
 /**
  * 将View从父容器移除
  */
-fun View.fRemoveSelf(): Boolean {
+fun View?.fRemoveSelf(): Boolean {
     return LibUtils.removeSelf(this)
 }
 
