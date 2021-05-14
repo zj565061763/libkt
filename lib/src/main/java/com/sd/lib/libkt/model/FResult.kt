@@ -46,6 +46,17 @@ class FResult<T> internal constructor(val data: T?, val failure: FFailure?) {
 class FFailure(
     val exception: Exception,
 ) {
+    override fun hashCode(): Int {
+        return exception.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other == this) return true
+        if (other == null) return false
+        if (other !is FFailure) return false
+        return exception == other.exception
+    }
+
     override fun toString(): String {
         return exception.toString()
     }
