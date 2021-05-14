@@ -4,12 +4,15 @@ import com.sd.lib.libkt.exception.FException
 
 class FResult<T> internal constructor(val data: T?, val failure: FFailure?) {
     val isSuccess: Boolean
+    val isFailure: Boolean
 
     init {
         val success = data != null && failure == null
         val failure = data == null && failure != null
         assert(success || failure)
+
         isSuccess = success
+        isFailure = failure
     }
 
     companion object {
