@@ -19,6 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Log.i(TAG, "activity:${fObjectId()}")
+        Log.i(TAG, "activity fObjectId:${fObjectId()}")
     }
 }
