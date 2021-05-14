@@ -51,8 +51,7 @@ class FFailure(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (other == this) return true
-        if (other == null) return false
+        if (other === this) return true
         if (other !is FFailure) return false
         return exception == other.exception
     }
