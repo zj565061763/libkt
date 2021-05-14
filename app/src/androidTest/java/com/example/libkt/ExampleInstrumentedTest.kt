@@ -33,5 +33,6 @@ class ExampleInstrumentedTest {
 
         val resultObject = FResult.failure<Objects>(result)
         assertEquals(result.failure, resultObject.failure)
+        assertEquals(result, resultObject)
     }
 }
