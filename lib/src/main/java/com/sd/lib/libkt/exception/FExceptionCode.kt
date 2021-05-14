@@ -12,6 +12,6 @@ open class FExceptionCode : FException {
     }
 
     override fun toString(): String {
-        return "${super.toString()} code:${super.toString()}"
+        return "${super.toString()} code:${code}"
     }
 }
