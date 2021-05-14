@@ -30,7 +30,6 @@ class FResult<T> internal constructor(val data: T?, val failure: FFailure?) {
         }
 
         @JvmStatic
-        @JvmOverloads
         fun <T> failure(result: FResult<*>): FResult<T> {
             assert(!result.isSuccess)
             val fail = result.failure!!
