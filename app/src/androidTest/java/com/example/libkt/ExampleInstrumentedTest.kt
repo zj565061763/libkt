@@ -14,11 +14,20 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
     @Test
-    fun testFResult() {
+    fun testResultSuccess() {
         val result = FResult.success("success")
         assertEquals(true, result.isSuccess)
         assertEquals(false, result.isFailure)
         assertEquals("success", result.data)
         assertEquals(null, result.failure)
+    }
+
+    @Test
+    fun testResultFailure() {
+        val result = FResult.failure<String>("failure")
+        assertEquals(true, result.isFailure)
+        assertEquals(false, result.isSuccess)
+        assertEquals(null, result.data)
+        assertEquals("failure", result.failure!!.toString())
     }
 }
