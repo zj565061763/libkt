@@ -23,18 +23,21 @@ class FViewScope : FCoroutineScope {
         start: CoroutineStart,
         block: suspend CoroutineScope.() -> Unit
     ): Job? {
-        if (LibUtils.isAttached(_view)) {
-            if (_mainScope.init()) {
-                _view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-                    override fun onViewAttachedToWindow(v: View?) {
-                    }
+        if (!LibUtils.isAttached(_view)) {
+            // 如果view没有被添加到UI上面，不处理
+            return null
+        }
 
-                    override fun onViewDetachedFromWindow(v: View?) {
-                        _mainScope.destroy()
-                        _view.removeOnAttachStateChangeListener(this)
-                    }
-                })
-            }
+        if (_mainScope.init()) {
+            _view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+                override fun onViewAttachedToWindow(v: View?) {
+                }
+
+                override fun onViewDetachedFromWindow(v: View?) {
+                    _mainScope.destroy()
+                    _view.removeOnAttachStateChangeListener(this)
+                }
+            })
         }
 
         return _mainScope.launch(
