@@ -21,6 +21,10 @@ class FActivityScope : FCoroutineScope {
         start: CoroutineStart,
         block: suspend CoroutineScope.() -> Unit
     ): Job? {
+        if (_activity.isFinishing) {
+            return null
+        }
+
         _activityLifecycleCallbacks
         return _mainScope.launch(
             context = context,
