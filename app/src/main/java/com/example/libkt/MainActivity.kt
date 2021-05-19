@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
 
     /** Activity协程作用域 */
-    private val _activityScope = FActivityScope(this@MainActivity)
+    private val _activityScope = FActivityScope(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         _activityScope.launch {
             while (true) {
-                Log.i(TAG, "launch run")
+                Log.i(TAG, "launch run activity")
                 delay(1000)
             }
         }

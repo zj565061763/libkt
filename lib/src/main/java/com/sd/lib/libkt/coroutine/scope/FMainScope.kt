@@ -16,10 +16,12 @@ class FMainScope : FCoroutineScope() {
      * 初始化
      */
     @Synchronized
-    fun init() {
+    fun init(): Boolean {
         if (_coroutineScope == null) {
             _coroutineScope = MainScope()
+            return true
         }
+        return false
     }
 
     /**
