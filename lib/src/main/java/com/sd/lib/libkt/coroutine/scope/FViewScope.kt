@@ -1,4 +1,4 @@
-package com.sd.lib.libkt.coroutine
+package com.sd.lib.libkt.coroutine.scope
 
 import android.view.View
 import com.sd.lib.libkt.utils.LibUtils
@@ -6,10 +6,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 
-class FViewScope {
-    val _view: View
+class FViewScope : FCoroutineScope {
+    private val _view: View
     private val _mainScope by lazy { FMainScope() }
 
     constructor(view: View) {
@@ -23,9 +22,9 @@ class FViewScope {
     /**
      * 协程
      */
-    fun launch(
-        context: CoroutineContext = EmptyCoroutineContext,
-        start: CoroutineStart = CoroutineStart.DEFAULT,
+    override fun launch(
+        context: CoroutineContext,
+        start: CoroutineStart,
         block: suspend CoroutineScope.() -> Unit
     ): Job? {
         return _mainScope.launch(

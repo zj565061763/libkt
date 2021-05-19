@@ -1,10 +1,9 @@
-package com.sd.lib.libkt.coroutine
+package com.sd.lib.libkt.coroutine.scope
 
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 
-class FMainScope {
+class FMainScope : FCoroutineScope() {
     @Volatile
     private var _coroutineScope: CoroutineScope? = null
 
@@ -26,9 +25,9 @@ class FMainScope {
     /**
      * 协程
      */
-    fun launch(
-        context: CoroutineContext = EmptyCoroutineContext,
-        start: CoroutineStart = CoroutineStart.DEFAULT,
+    override fun launch(
+        context: CoroutineContext,
+        start: CoroutineStart,
         block: suspend CoroutineScope.() -> Unit
     ): Job? {
         val scope = _coroutineScope ?: return null
