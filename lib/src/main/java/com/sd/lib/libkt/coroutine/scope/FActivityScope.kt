@@ -14,10 +14,6 @@ class FActivityScope : FCoroutineScope {
 
     constructor(activity: Activity) : super() {
         _activity = activity
-        if (!activity.isFinishing) {
-            activity.application.registerActivityLifecycleCallbacks(_activityLifecycleCallbacks)
-            _mainScope.init()
-        }
     }
 
     override fun launch(
@@ -25,6 +21,7 @@ class FActivityScope : FCoroutineScope {
         start: CoroutineStart,
         block: suspend CoroutineScope.() -> Unit
     ): Job? {
+        _activityLifecycleCallbacks
         return _mainScope.launch(
             context = context,
             start = start,
@@ -32,29 +29,38 @@ class FActivityScope : FCoroutineScope {
         )
     }
 
-    private val _activityLifecycleCallbacks = object : Application.ActivityLifecycleCallbacks {
-        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        }
+    private val _activityLifecycleCallbacks by lazy {
+        val callback = object : Application.ActivityLifecycleCallbacks {
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+            }
 
-        override fun onActivityStarted(activity: Activity) {
-        }
+            override fun onActivityStarted(activity: Activity) {
+            }
 
-        override fun onActivityResumed(activity: Activity) {
-        }
+            override fun onActivityResumed(activity: Activity) {
+            }
 
-        override fun onActivityPaused(activity: Activity) {
-        }
+            override fun onActivityPaused(activity: Activity) {
+            }
 
-        override fun onActivityStopped(activity: Activity) {
-        }
+            override fun onActivityStopped(activity: Activity) {
+            }
 
-        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-        }
+            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+            }
 
-        override fun onActivityDestroyed(activity: Activity) {
-            if (_activity == activity) {
-                _mainScope.destroy()
-                activity.application.unregisterActivityLifecycleCallbacks(this)
+            override fun onActivityDestroyed(activity: Activity) {
+                if (_activity == activity) {
+                    _mainScope.destroy()
+                    activity.application.unregisterActivityLifecycleCallbacks(this)
+                }
+            }
+        }
+        callback.also {
+            val activity = _activity
+            if (!activity.isFinishing) {
+                activity.application.registerActivityLifecycleCallbacks(it)
+                _mainScope.init()
             }
         }
     }
