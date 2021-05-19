@@ -13,13 +13,14 @@ class TestView : FrameLayout {
     /** View协程作用域 */
     private val _viewScope = FViewScope(this)
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        post {
-            _viewScope.launch {
-                while (true) {
-                    Log.i(TAG, "launch run view")
-                    delay(1000)
-                }
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        _viewScope.launch {
+            while (true) {
+                Log.i(TAG, "launch run view")
+                delay(1000)
             }
         }
     }
