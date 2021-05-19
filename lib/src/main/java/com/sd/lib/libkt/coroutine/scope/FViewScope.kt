@@ -13,10 +13,6 @@ class FViewScope : FCoroutineScope {
 
     constructor(view: View) {
         _view = view
-        view.addOnAttachStateChangeListener(_onAttachStateChangeListener)
-        if (LibUtils.isAttached(view)) {
-            _mainScope.init()
-        }
     }
 
     /**
@@ -27,20 +23,24 @@ class FViewScope : FCoroutineScope {
         start: CoroutineStart,
         block: suspend CoroutineScope.() -> Unit
     ): Job? {
+        if (LibUtils.isAttached(_view)) {
+            if (_mainScope.init()) {
+                _view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+                    override fun onViewAttachedToWindow(v: View?) {
+                    }
+
+                    override fun onViewDetachedFromWindow(v: View?) {
+                        _mainScope.destroy()
+                        _view.removeOnAttachStateChangeListener(this)
+                    }
+                })
+            }
+        }
+
         return _mainScope.launch(
             context = context,
             start = start,
             block = block
         )
-    }
-
-    private val _onAttachStateChangeListener = object : View.OnAttachStateChangeListener {
-        override fun onViewAttachedToWindow(v: View?) {
-            _mainScope.init()
-        }
-
-        override fun onViewDetachedFromWindow(v: View?) {
-            _mainScope.destroy()
-        }
     }
 }
