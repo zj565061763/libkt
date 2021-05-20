@@ -24,7 +24,12 @@ class FViewScope : FCoroutineScope {
         block: suspend CoroutineScope.() -> Unit
     ): Job? {
         if (!LibUtils.isAttached(_view)) {
-            // 如果view没有被添加到UI上面，不处理
+            // view没有被添加到UI上面，不处理
+            return null
+        }
+
+        if (LibUtils.isFinishing(_view)) {
+            // view所在的Activity正在被关闭，不处理
             return null
         }
 

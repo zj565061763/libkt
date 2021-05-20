@@ -1,5 +1,6 @@
 package com.sd.lib.libkt.utils
 
+import android.app.Activity
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
@@ -24,5 +25,11 @@ internal object LibUtils {
         } catch (e: Exception) {
         }
         return true
+    }
+
+    fun isFinishing(view: View?): Boolean {
+        if (view == null) return false
+        val context = view.context
+        return context is Activity && context.isFinishing
     }
 }
