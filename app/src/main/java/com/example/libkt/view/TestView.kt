@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 class TestView : FrameLayout {
     val TAG = TestView::class.java.simpleName
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs){
+        assert(fViewScope() == fViewScope())
+    }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()

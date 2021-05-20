@@ -5,8 +5,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.libkt.databinding.ActivityMainBinding
 import com.sd.lib.libkt.ext.fActivityScope
-import com.sd.lib.libkt.ext.fIsAttached
-import com.sd.lib.libkt.ext.fIsFinishing
 import com.sd.lib.libkt.ext.fObjectId
 import kotlinx.coroutines.delay
 
@@ -26,17 +24,12 @@ class MainActivity : AppCompatActivity() {
                 delay(1000)
             }
         }
+
+        assert(fActivityScope() == fActivityScope())
     }
 
     override fun onResume() {
         super.onResume()
         Log.i(TAG, "activity fObjectId:${fObjectId()}")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        val isAttached = _binding.tvView.fIsAttached()
-        val isFinishing = _binding.tvView.fIsFinishing()
-        Log.i(TAG, "isAttached:${isAttached} isFinishing:${isFinishing}")
     }
 }
