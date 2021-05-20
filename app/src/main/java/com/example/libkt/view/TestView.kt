@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.FrameLayout
 import com.sd.lib.libkt.ext.fViewScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class TestView : FrameLayout {
     val TAG = TestView::class.java.simpleName

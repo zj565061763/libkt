@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="libkt_view_tag_coroutine_scope" type="id" />
+    <item name="libkt_activity_tag_coroutine_scope" type="id" />
 </resources>
