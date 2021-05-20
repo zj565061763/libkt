@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <com.example.libkt.view.TestView
+        android:id="@+id/tv_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
