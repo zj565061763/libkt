@@ -2,6 +2,8 @@ package com.sd.lib.libkt.ext
 
 import android.app.Activity
 import android.view.View
+import com.sd.lib.libkt.R
+import com.sd.lib.libkt.coroutine.scope.FViewScope
 import com.sd.lib.libkt.model.FLayoutChangeParams
 import com.sd.lib.libkt.utils.LibUtils
 import kotlin.coroutines.resume
@@ -26,6 +28,20 @@ fun View?.fRemoveSelf(): Boolean {
  */
 fun View?.fIsFinishing(): Boolean {
     return LibUtils.isFinishing(this)
+}
+
+/**
+ * 返回View对应的[FViewScope]
+ */
+fun View.fViewScope(): FViewScope {
+    val tag = getTag(R.id.libkt_view_tag_coroutine_scope)
+    if (tag is FViewScope) {
+        return tag
+    }
+
+    return FViewScope(this).also {
+        setTag(R.id.libkt_view_tag_coroutine_scope, it)
+    }
 }
 
 /**
