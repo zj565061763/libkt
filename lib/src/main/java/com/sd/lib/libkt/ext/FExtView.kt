@@ -1,5 +1,6 @@
 package com.sd.lib.libkt.ext
 
+import android.app.Activity
 import android.view.View
 import com.sd.lib.libkt.model.FLayoutChangeParams
 import com.sd.lib.libkt.utils.LibUtils
@@ -18,6 +19,13 @@ fun View?.fIsAttached(): Boolean {
  */
 fun View?.fRemoveSelf(): Boolean {
     return LibUtils.removeSelf(this)
+}
+
+/**
+ * View所在的Activity是否结束[Activity.isFinishing]
+ */
+fun View?.fIsFinishing(): Boolean {
+    return LibUtils.isFinishing(this)
 }
 
 /**

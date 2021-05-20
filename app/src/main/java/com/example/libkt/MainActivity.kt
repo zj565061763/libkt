@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.libkt.databinding.ActivityMainBinding
 import com.sd.lib.libkt.coroutine.scope.FActivityScope
 import com.sd.lib.libkt.ext.fIsAttached
+import com.sd.lib.libkt.ext.fIsFinishing
 import com.sd.lib.libkt.ext.fObjectId
 import kotlinx.coroutines.delay
 
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         val isAttached = _binding.tvView.fIsAttached()
-        Log.i(TAG, "isAttached:${isAttached}")
+        val isFinishing = _binding.tvView.fIsFinishing()
+        Log.i(TAG, "isAttached:${isAttached} isFinishing:${isFinishing}")
     }
 }
