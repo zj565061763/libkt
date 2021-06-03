@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         fActivityScope().launch {
             while (true) {
-                Log.i(TAG, "launch run activity")
+                Log.i(TAG, "launch run activity thread:${Thread.currentThread().name}")
                 delay(1000)
             }
         }
